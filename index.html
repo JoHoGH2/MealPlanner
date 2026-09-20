@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A local-first weekly meal planner with recipes, batch cooking, freezer tracking and shopping lists.">
+  <title>My Meal Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Version 3</p>
+      <h1>My Meal Planner</h1>
+      <p class="subtitle">Plan meals, batch cook confidently, and keep your freezer and shopping list in sync.</p>
+    </div>
+    <div class="header-actions">
+      <button class="button secondary" id="export-button">Export backup</button>
+      <label class="button secondary file-button">Import backup<input id="import-input" type="file" accept="application/json"></label>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="notice" class="notice" role="status" aria-live="polite"></div>
+    <nav class="tabs" aria-label="Primary navigation">
+      <button class="tab active" data-view="planner">Weekly planner</button>
+      <button class="tab" data-view="recipes">Recipes</button>
+      <button class="tab" data-view="freezer">Freezer</button>
+      <button class="tab" data-view="shopping">Shopping list</button>
+    </nav>
+
+    <section id="planner-view" class="view active">
+      <div class="section-heading">
+        <div><p class="eyebrow">Your week</p><h2>Weekly planner</h2></div>
+        <div class="household-control"><label for="household-size">Default household size</label><input id="household-size" type="number" min="1" value="2"></div>
+      </div>
+      <p class="help-text">Eat is people served. Cook is fresh portions prepared. From freezer is portions used from stock. These values are intentionally independent.</p>
+      <div id="planner-grid" class="planner-grid"></div>
+    </section>
+
+    <section id="recipes-view" class="view">
+      <div class="section-heading"><div><p class="eyebrow">Your cookbook</p><h2>Recipes</h2></div><button class="button primary" id="add-recipe-button">Add recipe</button></div>
+      <div id="recipe-list" class="recipe-list"></div>
+      <form id="recipe-form" class="card recipe-form hidden">
+        <div class="section-heading"><h3 id="recipe-form-title">Add recipe</h3><button type="button" class="icon-button" id="cancel-recipe">×</button></div>
+        <input type="hidden" id="recipe-id">
+        <div class="form-grid"><label>Name<input id="recipe-name" required></label><label>Category<input id="recipe-category" placeholder="Dinner, breakfast…"></label><label>Base portions<input id="recipe-portions" type="number" min="1" value="4" required></label><label>Preparation minutes<input id="recipe-prep" type="number" min="0" value="0"></label><label>Cooking minutes<input id="recipe-cook-time" type="number" min="0" value="0"></label></div>
+        <label>Ingredients <span class="muted">(one per line: quantity | unit | name | shopping category)</span><textarea id="recipe-ingredients" rows="6" placeholder="500 | g | beef mince | Meat & Fish\n1 | | onion | Produce"></textarea></label>
+        <label>Instructions<textarea id="recipe-instructions" rows="4"></textarea></label>
+        <div class="form-actions"><button type="submit" class="button primary">Save recipe</button><button type="button" class="button secondary" id="cancel-recipe-2">Cancel</button></div>
+      </form>
+    </section>
+
+    <section id="freezer-view" class="view"><div class="section-heading"><div><p class="eyebrow">Stock on hand</p><h2>Freezer</h2></div></div><div id="freezer-list" class="freezer-list"></div></section>
+    <section id="shopping-view" class="view"><div class="section-heading"><div><p class="eyebrow">Fresh cooking only</p><h2>Shopping list</h2></div><button class="button secondary" id="clear-checked">Clear checked</button></div><p class="help-text">Generated from fresh Cook portions—not portions eaten or taken from the freezer. Add manual items below.</p><form id="manual-item-form" class="inline-form"><input id="manual-item" placeholder="Add an item, e.g. coffee" required><select id="manual-category"><option>Other</option><option>Produce</option><option>Meat & Fish</option><option>Dairy & Eggs</option><option>Cupboard</option><option>Frozen</option><option>Bakery</option><option>Drinks</option></select><button class="button primary">Add</button></form><div id="shopping-list" class="shopping-list"></div></section>
+  </main>
+  <footer><span>All data stays in this browser.</span><button id="reset-data" class="text-button">Reset demo data</button></footer>
+  <script src="app.js"></script>
+</body>
+</html>
